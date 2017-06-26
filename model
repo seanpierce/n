@@ -1,0 +1,196 @@
+#!/bin/bash
+
+echo "Enter class name (singular, lowercase)"
+echo "*note: multiple words will cause issues"
+read classname_singular
+
+echo "Enter class name (plural, lowercase)"
+echo "*note: multiple words will cause issues"
+read classname_plural
+
+classname_singular_upper="$(tr '[:lower:]' '[:upper:]' <<< ${classname_singular:0:1})${classname_singular:1}"
+classname_plural_upper="$(tr '[:lower:]' '[:upper:]' <<< ${classname_plural:0:1})${classname_plural:1}"
+
+# this block creates necessary directories
+mkdir app/views/${classname_plural}
+rails g migration create_${classname_plural}
+if [ -d "spec/models" ]
+  then
+    echo "spec/models already exists..."
+  else
+    echo "creating spec/models folder..."
+    mkdir spec/models
+fi
+
+# this block creates necessary files
+touch app/controllers/${classname_plural}_controller.rb app/models/${classname_singular}.rb
+cd app/views/${classname_plural}
+touch _form.html.erb edit.html.erb index.html.erb new.html.erb show.html.erb
+cd ../../../
+touch spec/models/${classname_singular}_spec.rb
+
+# this block creates and populates the error view file
+if [ -f "app/views/layouts/_errors.html.erb" ]
+  then
+    echo "errors file exists"
+  else
+    echo "creating errors file"
+    touch app/views/layouts/_errors.html.erb
+
+cat >>app/views/layouts/_errors.html.erb <<EOF
+<% if object.errors.any? %>
+  <h3>Please fix these errors:</h3>
+  <ul>
+    <% object.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </ul>
+<% end %>
+EOF
+
+fi
+# this block writes strater code to files
+
+#controller
+cat >>app/controllers/${classname_plural}_controller.rb <<EOF
+class ${classname_plural_upper}Controller < ApplicationController
+  def index
+    @${classname_plural} = ${classname_singular_upper}.all
+    render :index
+  end
+
+  def show
+    @${classname_singular} = ${classname_singular_upper}.find(params[:id])
+    render :show
+  end
+
+  def new
+    @${classname_singular} = ${classname_singular_upper}.new
+    render :new
+  end
+
+  def create
+    @${classname_singular} = ${classname_singular_upper}.new(${classname_singular}_params)
+    if @${classname_singular}.save
+      redirect_to  ${classname_plural}_path
+    else
+      render :new
+    end
+  end
+
+  def edit
+    @${classname_singular} = ${classname_singular_upper}.find(params[:id])
+    render :edit
+  end
+
+  def update
+    @${classname_singular}= ${classname_singular_upper}.find(params[:id])
+    if @${classname_singular}.update(${classname_singular}_params)
+      redirect_to ${classname_plural}_path
+    else
+      render :edit
+    end
+  end
+
+  def destroy
+    @${classname_singular} = ${classname_singular_upper}.find(params[:id])
+    @${classname_singular}.destroy
+    redirect_to ${classname_plural}_path
+  end
+
+private
+  def ${classname_singular}_params
+    # Use strict parameters, replace placeholder info below with your class' actual attributes   params.require(:${classname_singular}).permit(:attribute1, :attribute2, :attribute3)
+  end
+end
+EOF
+
+#_form
+cat >>app/views/${classname_plural}/_form.html.erb <<EOF
+<%= render "layouts/errors", :object => @${classname_singular} %>
+
+<%= form_for @${classname_singular} do |f| %>
+  <%= f.submit %>
+<% end %>
+EOF
+
+#edit
+cat >>app/views/${classname_plural}/edit.html.erb <<EOF
+<h1>Edit ${classname_singular_upper}</h1>
+
+<%= render "form" %>
+EOF
+
+#new
+cat >>app/views/${classname_plural}/new.html.erb <<EOF
+<h1>New ${classname_singular_upper}</h1>
+
+<%= render "form" %>
+EOF
+
+#show
+cat >>app/views/${classname_plural}/show.html.erb <<EOF
+<h1>Show ${classname_singular_upper}</h1>
+
+<p><%= link_to "Edit", edit_${classname_singular}_path(@${classname_singular}) %></p>
+<p><%= link_to "Delete", ${classname_singular}_path(@${classname_singular}),
+                         :data => {:confirm => "You sure?",
+                                   :method => "delete"} %></p>
+<p><%= link_to "Return to ${classname_plural}", ${classname_plural}_path %></p>
+EOF
+
+#index
+cat >>app/views/${classname_plural}/index.html.erb <<EOF
+<h1>${classname_plural_upper}</h1>
+
+<ul>
+  <% @${classname_plural}.each do |${classname_singular}| %>
+    <li><%= link_to "Show", ${classname_singular}_path(${classname_singular}) %></li>
+  <% end %>
+</ul>
+
+<hr>
+
+<%= link_to "New ${classname_singular_upper}", new_${classname_singular}_path %>
+EOF
+
+#model
+cat >>app/models/${classname_singular}.rb <<EOF
+class ${classname_singular_upper} < ApplicationRecord
+
+end
+EOF
+
+#router
+# to be continued
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# end
