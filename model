@@ -67,17 +67,14 @@ cat >>app/controllers/${classname_plural}_controller.rb <<EOF
 class ${classname_plural_upper}Controller < ApplicationController
   def index
     @${classname_plural} = ${classname_singular_upper}.all
-    render :index
   end
 
   def show
     @${classname_singular} = ${classname_singular_upper}.find(params[:id])
-    render :show
   end
 
   def new
     @${classname_singular} = ${classname_singular_upper}.new
-    render :new
   end
 
   def create
@@ -91,7 +88,6 @@ class ${classname_plural_upper}Controller < ApplicationController
 
   def edit
     @${classname_singular} = ${classname_singular_upper}.find(params[:id])
-    render :edit
   end
 
   def update
