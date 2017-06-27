@@ -33,6 +33,7 @@ rails g migration create_${classname_plural}
 if [ -d "spec/models" ]
   then
     echo "${blue}spec/models already exists...${reset}"
+    touch spec/models/${classname_singular}_spec.rb
   else
     echo "${green}creating spec/models folder...${reset}"
     if [ -d "spec" ]
