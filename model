@@ -80,6 +80,7 @@ class ${classname_plural_upper}Controller < ApplicationController
   def create
     @${classname_singular} = ${classname_singular_upper}.new(${classname_singular}_params)
     if @${classname_singular}.save
+    flash[:notice] = "${classname_singular_upper} successfully added!"
       redirect_to  ${classname_plural}_path
     else
       render :new
@@ -93,6 +94,7 @@ class ${classname_plural_upper}Controller < ApplicationController
   def update
     @${classname_singular}= ${classname_singular_upper}.find(params[:id])
     if @${classname_singular}.update(${classname_singular}_params)
+      flash[:notice] = "${classname_singular_upper} successfully updated!"
       redirect_to ${classname_plural}_path
     else
       render :edit
@@ -101,8 +103,10 @@ class ${classname_plural_upper}Controller < ApplicationController
 
   def destroy
     @${classname_singular} = ${classname_singular_upper}.find(params[:id])
-    @${classname_singular}.destroy
-    redirect_to ${classname_plural}_path
+    if @${classname_singular}.destroy
+      flash[:notice] = "${classname_singular_upper} successfully removed!"
+      redirect_to ${classname_plural}_path
+    end
   end
 
 private
