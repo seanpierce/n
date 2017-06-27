@@ -25,9 +25,10 @@ if [ -d "spec/models" ]
     echo "${blue}spec/models already exists...${reset}"
   else
     echo "${green}creating spec/models folder...${reset}"
-    if [-d "spec"]
+    if [ -d "spec" ]
       then
         mkdir spec/models
+        touch spec/models/${classname_singular}_spec.rb
       else
         echo "${red}no spec folder available, cannot create spec/model...${reset}"
     fi
@@ -38,7 +39,6 @@ touch app/controllers/${classname_plural}_controller.rb app/models/${classname_s
 cd app/views/${classname_plural}
 touch _form.html.erb edit.html.erb index.html.erb new.html.erb show.html.erb
 cd ../../../
-touch spec/models/${classname_singular}_spec.rb
 
 # this block creates and populates the error view file
 if [ -f "app/views/layouts/_errors.html.erb" ]
