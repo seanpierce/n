@@ -8,11 +8,23 @@ n is a simple rails scaffold script for generating a model and all it's CRUD/L f
 * Follow the script's prompts
 * in your **config/routes.rb** file, add "resources :_plural-lowercase-model-name_"
 
-  ```
-  Rails.application.routes.draw do
-      resources :animals
-  end    
-  ```
+```
+Rails.application.routes.draw do
+    resources :animals
+end
+```
+
+#### Notes
+This script will generate the following files and directories, and will also include corresponding code in each file to get you started.
+* app/controllers/**classname**\_controller.rb
+* app/models/**classname**.rb
+* app/views/**classname**/\_form.html.erb
+* app/views/**classname**/edit.html.erb
+* app/views/**classname**/index.html.erb
+* app/views/**classname**/new.html.erb
+* app/views/**classname**/show.html.erb
+* spec/models/**classname**\_spec.rb
+
 
 #### Authors
 Sean Pierce, Tyler Stephenson

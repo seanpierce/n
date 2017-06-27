@@ -25,7 +25,12 @@ if [ -d "spec/models" ]
     echo "${blue}spec/models already exists...${reset}"
   else
     echo "${green}creating spec/models folder...${reset}"
-    mkdir spec/models
+    if [-d "spec"]
+      then
+        mkdir spec/models
+      else
+        echo "${red}no spec folder available, cannot create spec/model...${reset}"
+    fi
 fi
 
 # this block creates necessary files
