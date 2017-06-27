@@ -184,6 +184,12 @@ EOF
 
 #router
 # to be continued
+#maybe something like this?
+# ed -s config/routes.rb << 'EOF'
+# 2a
+# prepend these lines
+# to the beginning
+# EOF
 
 echo "${green}Class build complete!${reset}"
 
