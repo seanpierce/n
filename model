@@ -1,12 +1,18 @@
 #!/bin/bash
 
-echo "Enter class name (singular, lowercase)"
-echo "*note: multiple words will cause issues"
+# set colors
+red=`tput setaf 1`
+green=`tput setaf 2`
+blue=`tput setaf 4`
+reset=`tput sgr0`
+
+echo "Enter class name (${green}singular${reset}, lowercase)"
 read classname_singular
 
-echo "Enter class name (plural, lowercase)"
-echo "*note: multiple words will cause issues"
+echo "Enter class name (${green}plural${reset}, lowercase)"
 read classname_plural
+
+printf "${green}Building " && sleep 0.5 && printf "." && sleep 0.5 && printf "." && sleep 0.5 && printf ".${reset}" && sleep 0.5
 
 classname_singular_upper="$(tr '[:lower:]' '[:upper:]' <<< ${classname_singular:0:1})${classname_singular:1}"
 classname_plural_upper="$(tr '[:lower:]' '[:upper:]' <<< ${classname_plural:0:1})${classname_plural:1}"
@@ -16,9 +22,9 @@ mkdir app/views/${classname_plural}
 rails g migration create_${classname_plural}
 if [ -d "spec/models" ]
   then
-    echo "spec/models already exists..."
+    echo "${blue}spec/models already exists...${reset}"
   else
-    echo "creating spec/models folder..."
+    echo "${green}creating spec/models folder...${reset}"
     mkdir spec/models
 fi
 
@@ -32,9 +38,9 @@ touch spec/models/${classname_singular}_spec.rb
 # this block creates and populates the error view file
 if [ -f "app/views/layouts/_errors.html.erb" ]
   then
-    echo "errors file exists"
+    echo "${blue}errors file already exists...${reset}"
   else
-    echo "creating errors file"
+    echo "${green}creating errors file...${reset}"
     touch app/views/layouts/_errors.html.erb
 
 cat >>app/views/layouts/_errors.html.erb <<EOF
@@ -164,7 +170,7 @@ EOF
 #router
 # to be continued
 
-
+echo "${green}Class build complete!${reset}"
 
 
 
