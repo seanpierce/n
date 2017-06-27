@@ -12,7 +12,8 @@ read classname_singular
 echo "Enter class name (${green}plural${reset}, lowercase)"
 read classname_plural
 
-printf "${green}Building " && sleep 0.5 && printf "." && sleep 0.5 && printf "." && sleep 0.5 && printf ".${reset}" && sleep 0.5
+#loading animation
+printf "${green}Building " && sleep 0.1 && printf "." && sleep 0.1 && printf "." && sleep 0.1 && printf ".${reset}" && sleep 0.1 && printf ".${reset}" && sleep 0.1 && printf ".${reset}" && sleep 0.1 && printf ".${reset}" && sleep 0.1 && printf ".${reset}" && sleep 0.1 && printf ".${reset}" && sleep 0.1 && printf ".${reset}" && sleep 0.1 && printf ".${reset}" && sleep 0.1
 
 classname_singular_upper="$(tr '[:lower:]' '[:upper:]' <<< ${classname_singular:0:1})${classname_singular:1}"
 classname_plural_upper="$(tr '[:lower:]' '[:upper:]' <<< ${classname_plural:0:1})${classname_plural:1}"
