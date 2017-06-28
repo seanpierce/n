@@ -8,7 +8,7 @@ n is a simple rails scaffold script for generating a model and all it's CRUD/L f
 * Provide the script with the singular and plural versions of your intended class name.
 
 #### Notes
-This script will:
+This script **will**:
 * generate the following files
   * app/controllers/**classname**\_controller.rb
   * app/models/**classname**.rb
@@ -20,11 +20,12 @@ This script will:
   * spec/models/**classname**\_spec.rb (if applicable)
 * write starter code to each file  
 
-The script will **not**
+The script **will not**:
 * create class associations (you can start this process by nesting your resources in config/routes, then write your associations into your app/models files)
 * predict class attributes
 
-At the bottom of each class controller, the script declared placeholder values as strict parameters. These will need to be changed for your class to be successfully implemented. Example:
+At the bottom of each class' controller, the script declares placeholder values as strict parameters. These will need to be changed for your class to be successfully implemented. Make sure to change these placeholders to reflect your class' actual attributes. Example:
+
 ```ruby
 
 private
