@@ -184,14 +184,14 @@ class ${classname_singular_upper} < ApplicationRecord
 end
 EOF
 
-#router
-# to be continued
-#maybe something like this?
-# ed -s config/routes.rb << 'EOF'
-# 2a
-# prepend these lines
-# to the beginning
-# EOF
+# write resource to config/router.rb
+ed config/routes.rb<< 'EOF'
+1a
+  resources :${classname_plural}
+.
+w
+q
+EOF
 
 echo "${green}Class build complete!${reset}"
 
