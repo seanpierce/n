@@ -122,7 +122,8 @@ class ${classname_plural_upper}Controller < ApplicationController
 
 private
   def ${classname_singular}_params
-    # Use strict parameters, replace placeholder info below with your class' actual attributes   params.require(:${classname_singular}).permit(:attribute1, :attribute2, :attribute3)
+    # Use strict parameters, replace placeholder info below with your class' actual attributes
+    params.require(:${classname_singular}).permit(:attribute1, :attribute2, :attribute3)
   end
 end
 EOF
