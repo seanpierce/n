@@ -185,7 +185,7 @@ end
 EOF
 
 # write resource to config/router.rb
-ed config/routes.rb<< 'EOF'
+ed config/routes.rb << EOF
 1a
   resources :${classname_plural}
 .
