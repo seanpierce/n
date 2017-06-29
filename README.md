@@ -1,6 +1,6 @@
 ## n
 
-n is a simple rails scaffold script for generating a model and all it's CRUD/L features without the mass of unnecessary information usually produced with rails' built-in scaffolding.
+n is a simple rails scaffold script for generating a model and all it's CRUD/L features without the often unneeded extras usually produced with rails' built-in scaffolding.
 
 #### Usage
 * From inside the root of your rails project, run `$ git clone https://github.com/seanpierce/n`
